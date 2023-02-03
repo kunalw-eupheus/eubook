@@ -16,7 +16,7 @@ function LinkTab(props) {
     );
   }
   
-const MaterialTabs = () => {
+const VerticalTabs = () => {
     const [value,setValue]=useState(0);
 
     const handleChange=(event,newValue)=>{
@@ -24,17 +24,18 @@ const MaterialTabs = () => {
     }
   return (
     <>
-    <Box sx={{ width: '100%' }}>
-      <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-        <LinkTab label="EBOOK"  />
-        <LinkTab label="ANSWER KEYS"  />
-        <LinkTab label="WORKSHEETS"  />
-      </Tabs>
-    </Box>
+    
     <div>
-    </div>
+    <Box sx={{ width: '100%' }}>
+    <Tabs orientation='vertical' value={value} onChange={handleChange} aria-label="nav tabs example">
+      <LinkTab label="Semester 1" href="" />
+      <LinkTab label="Semester 2" href="/trash" />
+      <LinkTab label="Semester 3" href="/spam" />
+    </Tabs>
+  </Box>
+  </div>
 </>
   )
 }
 
-export default MaterialTabs
+export default VerticalTabs

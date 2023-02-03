@@ -7,24 +7,30 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import eupheus_logo from "../../assets/eupheus_logo.png";
-import { Stack } from '@mui/system';
-import { Button } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import Person2Icon from '@mui/icons-material/Person2';
 import PasswordIcon from '@mui/icons-material/Password';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DrawerComponent from '../DrawerComponent/DrawerComponent';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 
 export default function Navbar() {
+
+  const[value,setValue]=React.useState();
+  const theme = useTheme();
+  console.log(theme);
+  const isMatch=useMediaQuery(theme.breakpoints.down('md'));
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
+  
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -39,7 +45,7 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
+  
   
   const mobileMenuId = 'primary-search-account-menu-mobile';
   
@@ -95,19 +101,23 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+         
           <div className=''>
             <img src={eupheus_logo} className="mr-2 w-[150px] bg-white"/>
             </div>
-            <div>
-           <Stack direction='row' spacing={2} className="sm:ml-[900px]">
+            {/* <div>
+           <Stack direction='row' spacing={2} alignItems='end'>
             <Button color='inherit'>Home</Button>
             <Button color='inherit'>WishList</Button>
             <Button color='inherit'>All Books</Button>
             </Stack> 
-            </div>
-        
-          
-          <div>
+            </div> */}
+             {isMatch?(<DrawerComponent/>):(<>
+            <Tabs sx={{marginLeft:'auto'}}  indicatorColor="secondary"  value={value} onChange={(e,value)=>setValue(value)}>
+              <Tab label='Home'/>
+              <Tab label='WishList'/>
+              <Tab label='All Books'/>
+            </Tabs>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -118,9 +128,7 @@ export default function Navbar() {
               >
                 <AccountCircle />
               </IconButton>
-              
-            </div>
-          
+            </> )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

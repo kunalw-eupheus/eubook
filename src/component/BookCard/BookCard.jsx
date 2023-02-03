@@ -1,7 +1,14 @@
 import React from "react";
 import { Button } from "@mui/material";
 import Semester_Book_1_Sem_1 from "../../assets/Semester_Book_1_Sem_1.jpg";
+import { Navigate, useNavigate } from "react-router-dom";
+
 const BookCard = () => {
+const navigate=useNavigate();
+
+  const handleClick=()=>{
+    navigate('/view');
+  }
   return (
     <div className="">
       <div className="mt-2 shadow-sm shadow-white rounded-md">
@@ -14,7 +21,7 @@ const BookCard = () => {
           <div>Class</div>
         </div>
         <div className=" p-4">
-          <Button variant="contained" className="!bg-purple-500 ">
+          <Button variant="contained" className="!bg-purple-500 " onClick={handleClick}>
             View
           </Button>
         </div>
