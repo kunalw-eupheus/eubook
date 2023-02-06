@@ -5,9 +5,9 @@ import eupheus_logo from "../../assets/eupheus_logo.png";
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import Box from '@mui/material/Box'; 
 import LockIcon from '@mui/icons-material/Lock'; 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoginCover from "../../assets/LoginCover.png";
-import Cover from "../../assets/Cover.jpg";
+
 const Login = () => {
 const navigate= useNavigate();
 
@@ -16,9 +16,9 @@ const navigate= useNavigate();
   }
   return (
     <div className='flex justify-center items-center h-screen ' style={{backgroundImage:`url(${LoginCover})`} }>
-        <div className='flex flex-col gap-2  w-[30%]  p-5 shadow-xl shadow-slate-400 bg-white rounded-sm   '>
+        <div className='flex flex-col gap-2 w-[60%] sm:w-[30%]  p-5 shadow-xl shadow-slate-400 bg-white rounded-sm   '>
            <div>
-            <img src={eupheus_logo} classname="w-[5%]"></img>
+            <img src={eupheus_logo} classname="w-[5%]" alt="img"></img>
             </div>
            
            {/* <div className='flex '>

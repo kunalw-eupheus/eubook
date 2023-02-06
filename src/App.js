@@ -12,7 +12,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Login/>} />
             <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/view" element={<View/>}/>
+            <Route path="/dashboard/view" element={<View/>}/>
             </Routes>
             </BrowserRouter>
     </div>
