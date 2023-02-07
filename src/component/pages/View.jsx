@@ -37,10 +37,10 @@ const View= () => {
 
           </>):(<>
         <div className='flex flex-row w-full ml-4'>
-            <div className='border-zinc-300 border-2 p-4 mt-[2rem]  '>
+            <div className='border-zinc-300 border-2 py-1 mt-[2rem]  '>
                 <VerticalTabs/>
                 </div>
-                <div className='w-[90%] ml-5'><MaterialTabs/></div>
+                <div className='w-[80%] ml-5'><MaterialTabs/></div>
             </div>
             
       
