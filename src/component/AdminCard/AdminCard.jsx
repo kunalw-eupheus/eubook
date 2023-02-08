@@ -10,10 +10,10 @@ const AdminCard = () => {
         <div className="p-8">
           <div className="flex justify-center items-center ">
             <div className="flex flex-col">
-              <div className="ml-4">
+              <div className="flex justify-center">
                 <Face3Icon />
               </div>
-              <div>Students</div>
+              <div>Users</div>
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@ const AdminCard = () => {
         <div className="p-8">
           <div className="flex justify-center items-center ">
             <div className="flex flex-col">
-              <div className="ml-4">
+              <div className="flex justify-center">
                 <MenuBookIcon />
               </div>
               <div>All Books</div>

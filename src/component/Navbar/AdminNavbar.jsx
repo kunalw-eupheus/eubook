@@ -116,7 +116,7 @@ export default function AdminNavbar() {
             <img src={eupheus_logo} className="mr-2 w-[150px] bg-white" alt="logo"/>
             </div>
              {isMatch?(<DrawerComponent/>):(<>
-            <Tabs sx={{marginLeft:'auto'}}  indicatorColor="inherit" textColor='inherit' value={value} onClick={(e,value)=>{setValue(value)}}>
+            <Tabs sx={{marginLeft:'auto'}}  indicatorColor="inherit" textColor='inherit' value={value} onChange={(e,value)=>{setValue(value)}}>
               <Tab label='DashBoard' onClick={handleClickAdmin} />
               <Tab label='Users'/>
               <Tab label='All Books' onClick={handleClickBooks}/>
