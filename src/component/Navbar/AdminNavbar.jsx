@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 export default function AdminNavbar() {
 
   const[value,setValue]=React.useState();
+  const[Color,setColor]=React.useState(null)
   const theme = useTheme();
   console.log(theme);
   const isMatch=useMediaQuery(theme.breakpoints.down('md'));
@@ -56,6 +57,11 @@ export default function AdminNavbar() {
     navigate('/admin');
   }
 
+  const handleClickUser=()=>{
+    setColor('inherit');
+    navigate('/admin/users');
+    
+  }
   
   const mobileMenuId = 'primary-search-account-menu-mobile';
   
@@ -118,7 +124,7 @@ export default function AdminNavbar() {
              {isMatch?(<DrawerComponent/>):(<>
             <Tabs sx={{marginLeft:'auto'}}  indicatorColor="inherit" textColor='inherit' value={value} onChange={(e,value)=>{setValue(value)}}>
               <Tab label='DashBoard' onClick={handleClickAdmin} />
-              <Tab label='Users'/>
+              <Tab label='Users' onClick={handleClickUser}/>
               <Tab label='All Books' onClick={handleClickBooks}/>
               <Tab label='WishList'/>
             </Tabs>
