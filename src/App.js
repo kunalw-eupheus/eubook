@@ -1,27 +1,73 @@
-import logo from './logo.svg';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from './component/pages/Login';
-import Dashboard from './component/pages/Dashboard';
-import View from './component/pages/View';
-import Admin from './component/pages/Admin';
-import AllBooks from './component/pages/AllBooks';
-import Users from "./component/pages/Users";
-import AddInfo from './component/pages/AddInfo';
+import Login from "../src/pages/Login";
+import Dashboard from "../src/pages/Dashboard";
+import View from "../src/pages/View";
+import Admin from "../src/pages/Admin";
+import Books from "./pages/Books";
+import Users from "../src/pages/Users";
+import AddInfo from "./component/AddForm/AddInfo";
+import { useSelector } from "react-redux";
+import Series from "./pages/Series";
+import Author from "./pages/Author";
+import CreateBook from "../src/pages/CreateBook";
+import AllBooks from "./pages/AllBooks";
+import Subject from "./pages/Subject";
+import WishList from "./pages/WishList";
+import AssignBooks from "./pages/AssignBooks";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import UserRoute from "./routes/UserRoute";
+import UserBook from "./pages/UserBook";
+import Calender from "./component/Calender/Calender";
 
 function App() {
+  const isAuth = useSelector((state) => state.auth.user);
+  const MsAuth = useSelector((state) => state.auth.msAuth);
+  const isadmin = useSelector((state) => state.auth.admin);
+
   return (
     <div className="App">
-     <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element={<Login/>} />
-            <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/dashboard/view" element={<View/>}/>
-            <Route path="/admin" element={<Admin/>}/>
-            <Route path="/all_books" element={<AllBooks/>}/>
-            <Route path="/admin/users" element={<Users/>}/>
-            <Route path="/admin/addInfo" element={<AddInfo/>}/>
-            </Routes>
-            </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            exact
+            path="/admin"
+            element={isadmin || MsAuth ? <Admin /> : <Login />}
+          />
+          <Route
+            exact
+            path="/user"
+            element={isAuth ? <Dashboard /> : <Login />}
+          />
+
+          <Route element={<UserRoute />}>
+            <Route path="/user/:id" element={<View />} />
+            <Route path="/all_books/view/:id" element={<View />} />
+            <Route path="/all_books" element={<AllBooks />} />
+          </Route>
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin/all_books" element={<Books />} />
+            <Route path="/admin/addInfo" element={<AddInfo />} />
+            <Route
+              path="/admin/all_books/create_book"
+              element={<CreateBook />}
+            />
+            <Route path="/admin/all_books/add_subject" element={<Subject />} />
+            <Route path="/admin/all_books/add_series" element={<Series />} />
+            <Route
+              path="/admin/all_books/add_bookAuthor"
+              element={<Author />}
+            />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/all_books/wish_list" element={<WishList />} />
+            <Route
+              path="/admin/users/assign_books/:id"
+              element={<AssignBooks />}
+            />
+            <Route path="/admin/users/books/:id" element={<UserBook />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

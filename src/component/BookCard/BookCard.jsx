@@ -1,29 +1,38 @@
 import React from "react";
-import { Button } from "@mui/material";
-import Semester_Book_1_Sem_1 from "../../assets/Semester_Book_1_Sem_1.jpg";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const BookCard = () => {
-const navigate=useNavigate();
+const BookCard = (props) => {
+  const navigate = useNavigate();
 
-  const handleClick=()=>{
-    navigate('/dashboard/view');
-  }
+  const handleClick = () => {
+    console.log(props.id);
+    if (props.src === "user") {
+      navigate(`/user/${props.id}`);
+    } else {
+      navigate(`/all_books/view/${props.id}`);
+    }
+  };
+
   return (
-    <div className="">
-      <div className="mt-2 shadow-sm shadow-white rounded-md">
-        <img src={Semester_Book_1_Sem_1} className="max-h-[420px]" alt="sem_book" />
-      </div>
-      <div className="flex   bg-white justify-between">
-        <div className="p-2">
-          <div>Semester</div>
-          <div>Subject</div>
-          <div>Class</div>
+    <div className="rounded-lg shadow-xl shadow-[#b6b1b195] hover:cursor-pointer group   ">
+      <div className="mt-2 relative w-[100%] " onClick={handleClick}>
+        <div>
+          <img
+            src={props.bookcover}
+            className="h-[450px] rounded-lg brightness-140 "
+            alt="sem_book"
+          />
         </div>
-        <div className=" p-4">
-          <Button variant="contained" className="!bg-purple-500 " onClick={handleClick}>
-            View
-          </Button>
+        <div className="bg-[#ec0bec] shadow-xl shadow-[#ec0bec69]  absolute bottom-3 rounded-md  w-[94%] px-5 py-4 mx-[3%] z-10 hover:bg-[#ff3c3c]">
+          <h1 className="  text-[white] font-semibold text-[1.5rem] ">
+            {props.name}
+          </h1>
+          <div className="flex gap-1 ">
+            <div className="text-white ">{props.subject}</div>
+            <div className="text-[white]  ">{props.series}-</div>
+
+            <div className="text-white ">(Grade- {props.grade})</div>
+          </div>
         </div>
       </div>
     </div>
