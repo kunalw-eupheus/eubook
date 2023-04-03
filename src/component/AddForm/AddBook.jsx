@@ -74,9 +74,6 @@ const AddBook = () => {
         break;
 
       case "select_booktype":
-        // setbooktype(value.name);
-        // setbooktypeid(value.id);
-
         handleField("booktype", value.id, index);
       default:
         break;
@@ -102,9 +99,7 @@ const AddBook = () => {
       },
     });
 
-    console.log(res.data.message);
     setfetchstatedata(res.data.message);
-    // fetch1(res.data.message.id);
   };
 
   const fetch = async () => {
@@ -117,15 +112,13 @@ const AddBook = () => {
       },
     });
 
-    console.log(res.data.message);
     const data = res.data.message;
 
     let temp = [];
     for (let obj of data) {
       temp.push({ author: obj.author, id: obj.id });
-      // setauthorid(obj.id);
     }
-    console.log(temp);
+
     setfetchdata(temp);
   };
 
@@ -146,8 +139,7 @@ const AddBook = () => {
     for (let obj of data) {
       temp.push({ subject: obj.subject, id: obj.id });
     }
-    console.log(temp);
-    // console.log(temp);
+
     setfetchsubject(temp);
   };
 
@@ -299,8 +291,6 @@ const AddBook = () => {
     setbookmaterial(tempArr);
   };
 
-  console.log(bookmaterial);
-
   const handledialog = () => {
     setopen(false);
   };
@@ -320,14 +310,14 @@ const AddBook = () => {
   };
   return (
     <>
-      <div className="flex sm:flex-col border-2 border-slate-800  w-full ">
+      <div className="flex sm:flex-col border-2 border-slate-800 rounded-md w-full !bg-white">
         <form>
-          <div className="mb-5 flex justify-center align-items-centre font-semibold text-lg">
+          <div className="mb-5 flex justify-center align-items-centre font-semibold text-lg ">
             CREATE BOOK
           </div>
           <div className="flex gap-[2.7rem]  ml-[3rem]">
             <label className="font-medium ">Book Name</label>
-            {/* <input type="text" className='border-2 border-slate-500 mb-4 w-[60%]'/><br></br> */}
+
             <TextField
               id="standard-basic"
               label=""
@@ -389,7 +379,7 @@ const AddBook = () => {
           </div>
           <div className="flex gap-[2.7rem]  ml-[3rem]">
             <label className="font-medium ">Book Cover</label>
-            {/* <input type="text" className='border-2 border-slate-500 mb-4 w-[60%]'/><br></br> */}
+
             <TextField
               id="standard-basic"
               label=""

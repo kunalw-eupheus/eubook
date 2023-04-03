@@ -17,7 +17,8 @@ import AssignBooks from "./pages/AssignBooks";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UserRoute from "./routes/UserRoute";
 import UserBook from "./pages/UserBook";
-import Calender from "./component/Calender/Calender";
+
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.user);
@@ -28,9 +29,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route exact path="*" element={<PageNotFound />} />
+
+          <Route exact path="/admin" element={<Login />} />
           <Route
             exact
-            path="/admin"
+            path="/admin/dashboard"
             element={isadmin || MsAuth ? <Admin /> : <Login />}
           />
           <Route
@@ -38,6 +42,7 @@ function App() {
             path="/user"
             element={isAuth ? <Dashboard /> : <Login />}
           />
+          <Route exact path="/" element={<Login />} />
 
           <Route element={<UserRoute />}>
             <Route path="/user/:id" element={<View />} />

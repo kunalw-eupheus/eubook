@@ -6,8 +6,6 @@ import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { useState } from "react";
 import AddInfo from "../component/AddForm/AddInfo";
@@ -30,20 +28,7 @@ const Users = () => {
       <div>
         <AdminNavbar />
       </div>
-      {/* <div className="flex  sm:flex-row sm:justify-between ">
-        <div className="p-3">
-          <div className="flex-col">
-            <div>Admin</div>
-            <div>
-              <Breadcrumb />
-            </div>
-          </div>
 
-          <div>
-            <Button>Add User</Button>
-          </div>
-        </div>
-      </div> */}
       <div className="flex justify-between mt-[10vh]">
         <div>
           <h1>Admin</h1>

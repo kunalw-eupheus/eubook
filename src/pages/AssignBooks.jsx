@@ -271,21 +271,14 @@ const AssignBooks = () => {
                         <TableCell align="left" className="bg-slate-200">
                           {data.gradeMaster.grade}
                         </TableCell>
-                        {/* <TableCell algradeign="left" className="bg-slate-200">
-                    {data.series}
-                  </TableCell> */}
-                        {/* <TableCell align="left" className="bg-slate-200">
-                          {data.bookAuthor.author}
-                        </TableCell> */}
+
                         <TableCell align="left" className="bg-slate-200">
                           {data.seriesMaster.series}
                         </TableCell>
                         <TableCell align="left" className="bg-slate-200">
                           {data.subjectMaster.subject}
                         </TableCell>
-                        {/* <TableCell align="left" className="bg-slate-200">
-                    {data.status === true ? <Visibility /> : <VisibilityOff />}
-                  </TableCell> */}
+
                         <TableCell align="left" className="bg-slate-200">
                           <DeleteOutlineIcon
                             className=""
@@ -294,7 +287,6 @@ const AssignBooks = () => {
                             }}
                           />
                         </TableCell>
-                        {/* <TableCell align="right">{row.protein}</TableCell> */}
                       </TableRow>
                     ))
                   : (rowsPerPage > 0
@@ -359,14 +351,6 @@ const AssignBooks = () => {
                 )}
               </TableBody>
             </Table>
-            {/* <TablePagination
-          component="div"
-          count={fetchdata.length}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
           </TableContainer>
         </div>
         <div className="flex justify-end mt-3">

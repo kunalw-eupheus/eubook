@@ -103,6 +103,7 @@ const View = () => {
                   {loading ? null : (
                     <VerticalTabs
                       datas={fetchbook.slug}
+                      semdatas={fetchbook.message}
                       changeSem={changeSem}
                     />
                   )}
@@ -120,6 +121,7 @@ const View = () => {
                   {loading ? null : (
                     <VerticalTabs
                       datas={fetchbook.slug}
+                      semdatas={fetchbook.index}
                       changeSem={changeSem}
                     />
                   )}

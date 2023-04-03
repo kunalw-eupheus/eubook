@@ -20,20 +20,32 @@ function LinkTab(props) {
 const MaterialTabs = (props) => {
   const [value, setValue] = useState(0);
   const [active, setActive] = useState(0);
-  const [activesem, setActivesem] = useState(0);
+  const [activesem, setActivesem] = useState(3);
   const [data, setData] = useState([]);
 
   console.log(props.datas);
 
   // console.log(props.datas[0].index);
 
+  const alterData = () => {
+    const sem = ["sem1", "sem2"];
+    const finalData = [];
+    const data = sem.map((semester) => {
+      props.datas.map((item, index) => {
+        if (item.sl === semester) {
+          finalData.push({ ...item, index });
+        }
+      });
+    });
+    return finalData;
+  };
+  alterData();
   // if(props.datas.index===){
 
   // }
   // props.datas.map((data) => {
-  //   console.log("hiiii", data.index);
-  //   if (data.index === 3) {
-  //     setActivesem(data.index);
+  //   if (data.index > 0) {
+  //     setActive(data.index);
   //   }
   // });
   const handleChange = (event, newValue) => {
@@ -44,15 +56,14 @@ const MaterialTabs = (props) => {
   //   console.log(data.sl);
   // });
   const handleClick = (data, index) => {
-    console.log(data);
     console.log("hello", index);
-    setActive(data.index);
-    // if(data.index)
-    setActivesem(data.index);
-    console.log("value", index);
+    if (data.index < 2) {
+      setActive(data.index);
+    } else {
+      setActivesem(data.index);
+    }
     setValue(index);
     setData(data);
-    console.log("index", data.index);
   };
 
   return (
@@ -61,10 +72,10 @@ const MaterialTabs = (props) => {
         className="  flex-col mx-[1rem] my-[1rem] h-[67vh] p-[1rem] w-full  "
         // key={index}
       >
-        {props.datas.map((data, index) => (
+        {alterData().map((data, index) => (
           <Button
             className={`${
-              active || activesem === data.index
+              active === data.index
                 ? "!bg-pink-400 !shadow-red-500 !shadow-md "
                 : "!bg-inherit !text-blue-600"
             } !p-[0.8rem] !mx-2`}

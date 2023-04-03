@@ -9,7 +9,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import eupheus_logo from "../../assets/eupheus_logo.png";
 import { Tab, Tabs } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DrawerComponent from "../DrawerComponent/DrawerComponent";
+import DrawerComponent from "../DrawerComponent/UserDrawer";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +59,7 @@ export default function AdminNavbar() {
     navigate("/admin/all_books");
   };
   const handleClickAdmin = () => {
-    navigate("/admin");
+    navigate("/admin/dashboard");
     // setValue(value);
   };
 
@@ -89,22 +89,6 @@ export default function AdminNavbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Person2Icon />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem> */}
-      {/* <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <PasswordIcon />
-        </IconButton>
-        <p>Password Change</p>
-      </MenuItem> */}
       <MenuItem onClick={logout}>
         <IconButton
           size="large"
@@ -144,7 +128,7 @@ export default function AdminNavbar() {
                         ? "activeNav !rounded-[30px]"
                         : "!rounded-[30px] inactive"
                     }
-                    to="/admin"
+                    to="/admin/dashboard"
                     end
                   >
                     <Button className="!text-white   !text-lg !px-8   !py-3   ">

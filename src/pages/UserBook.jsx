@@ -7,13 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../component/Breadcrumb/Breadcrumb";
 import AdminNavbar from "../component/Navbar/AdminNavbar";
-import Menu from "../component/Menu/Menu";
 import { useState } from "react";
 import { useLayoutEffect } from "react";
 import localinstance from "../localinstance";
@@ -24,7 +20,6 @@ import { Toolbar } from "@mui/material";
 import { TextField } from "@mui/material";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { Checkbox } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const UserBook = () => {
@@ -43,11 +38,6 @@ const UserBook = () => {
   useLayoutEffect(() => {
     fetch(id);
   }, []);
-
-  //   const handleassignbook = (id) => {
-  //     console.log(id);
-  //     navigate(`/admin/users/assign_books/${id}`);
-  //   };
 
   const deleteid = async (id) => {
     console.log(id);
@@ -77,13 +67,10 @@ const UserBook = () => {
 
     console.log(res.data.message);
     console.log(res.data.message[0]);
-    // let columns = Object.keys(res.data.message[0]);
-    // console.log(columns);
-    // setcolumns(columns);
+
     const data = res.data.message;
     let book = [];
     for (let obj of data) {
-      //   bookname.push(obj.book.name);
       book.push({
         bookname: obj.book.name,
         series: obj.book.seriesMaster.series,
@@ -92,8 +79,6 @@ const UserBook = () => {
     }
     console.log(book);
     setfetchdata(book);
-    // fetch1(res.data.message.id);
-    // setid(res.data.message.id);
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -135,21 +120,6 @@ const UserBook = () => {
       setSearchRow(tempArr);
     }
   };
-
-  //   const handlecheckbox = (e, data) => {
-  //     console.log("value", e.target.value);
-  //     console.log(data);
-  //     // let tempindex = [];
-  //     // tempindex.push(e.target.value);
-  //     // console.log(tempindex);
-  //     let temp = [...fetchdata];
-  //     for (let obj of temp) {
-  //       if (data.id === obj.id) {
-  //         obj.checked = !obj.checked;
-  //       }
-  //     }
-  //     setfetchdata(temp);
-  //   };
 
   return (
     <>
@@ -253,43 +223,16 @@ const UserBook = () => {
                             },
                           }}
                         >
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            <Checkbox
-                              value={index}
-                              checked={data.checked}
-                              onChange={(e) => handlecheckbox(e, data)}
-                            />
-                          </TableCell> */}
                           <TableCell align="left" className="bg-slate-200">
                             {data.bookname}
                           </TableCell>
                           <TableCell align="left" className="bg-slate-200">
                             {data.grade}
                           </TableCell>
-                          {/* <TableCell algradeign="left" className="bg-slate-200">
-                    {data.series}
-                  </TableCell> */}
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            {data.bookAuthor.author}
-                          </TableCell> */}
+
                           <TableCell align="left" className="bg-slate-200">
                             {data.series}
                           </TableCell>
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            {data.subjectMaster.subject}
-                          </TableCell> */}
-                          {/* <TableCell align="left" className="bg-slate-200">
-                    {data.status === true ? <Visibility /> : <VisibilityOff />}
-                  </TableCell> */}
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            <DeleteOutlineIcon
-                              className=""
-                              onClick={() => {
-                                deleteid(data.id);
-                              }}
-                            />
-                          </TableCell> */}
-                          {/* <TableCell align="right">{row.protein}</TableCell> */}
                         </TableRow>
                       ))
                     : (rowsPerPage > 0
@@ -307,34 +250,17 @@ const UserBook = () => {
                             },
                           }}
                         >
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            <Checkbox
-                              value={index}
-                              checked={data.checked}
-                              onChange={(e) => handlecheckbox(e, data)}
-                            />
-                          </TableCell> */}
                           <TableCell align="left" className="bg-slate-200">
                             {data.bookname}
                           </TableCell>
                           <TableCell align="left" className="bg-slate-200">
                             {data.grade}
                           </TableCell>
-                          {/* <TableCell align="left" className="bg-slate-200">
-                      {data.series}
-                    </TableCell> */}
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            {data.bookAuthor.author}
-                          </TableCell> */}
+
                           <TableCell align="left" className="bg-slate-200">
                             {data.series}
                           </TableCell>
-                          {/* <TableCell align="left" className="bg-slate-200">
-                            {data.subjectMaster.subject}
-                          </TableCell> */}
-                          {/* <TableCell align="left" className="bg-slate-200">
-                      {data.status === true ? <Visibility /> : <VisibilityOff />}
-                    </TableCell> */}
+
                           <TableCell align="left" className="bg-slate-200">
                             <DeleteOutlineIcon
                               className=""
@@ -343,7 +269,6 @@ const UserBook = () => {
                               }}
                             />
                           </TableCell>
-                          {/* <TableCell align="right">{row.protein}</TableCell> */}
                         </TableRow>
                       ))}
 
@@ -354,14 +279,6 @@ const UserBook = () => {
                   )}
                 </TableBody>
               </Table>
-              {/* <TablePagination
-          component="div"
-          count={fetchdata.length}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
             </TableContainer>
           </div>
         </div>

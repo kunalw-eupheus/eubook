@@ -74,7 +74,7 @@ export default function SeriesTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchdata.length) : 0;
 
   return (
-    <div className="flex flex-col gap-5 sm:flex-row sm:gap-5 ">
+    <div className="flex flex-col gap-5 sm:flex-row  sm:justify-between">
       <div className="flex w-full md:w-[70%]">
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

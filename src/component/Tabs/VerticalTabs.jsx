@@ -27,6 +27,7 @@ const VerticalTabs = (props) => {
   };
 
   console.log(props.datas);
+  console.log(props.semdatas);
   return (
     <>
       <div>

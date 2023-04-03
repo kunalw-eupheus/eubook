@@ -2,7 +2,7 @@ import React from "react";
 import AdminNavbar from "../component/Navbar/AdminNavbar";
 import Breadcrumb from "../component/Breadcrumb/Breadcrumb";
 import AdminCard from "../component/AdminCard/AdminCard";
-import Menu from "../component/Menu/Menu";
+
 const Admin = () => {
   return (
     <>

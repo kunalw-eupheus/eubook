@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { useNavigate } from "react-router-dom";
+
 import BasicSelect from "../SearchDropdown/SearchDropdown";
 import instance from "../../instance";
 import localinstance from "../../localinstance";
@@ -50,22 +50,15 @@ const AddAuthor = ({ fetch }) => {
     setpostdata(res.data.message);
   };
 
-  const navigate = useNavigate();
-
   const handlesubject = () => {
     setopen(false);
     // fetch();
   };
 
   return (
-    // <div className=" flex w-full bg-purple-500">
-    //   <div className=" bg-pink-600 w-1/2">
-    //     <BasicSelect className="w-full" />
-    //   </div>
-    // <div className="flex justify-end  items-center p-[5%] h-screen  w-[90%] sm:w-full ">
-    <div className="border-2 border-black rounded-md shadow-md shadow-slate-400 ">
+    <div className="border-2 border-black rounded-md shadow-md shadow-slate-400 !bg-white">
       <form>
-        <div className="flex  justify-center p-3 border-2 border-slate-500 rounded-md bg-slate-400">
+        <div className="flex  justify-center p-3 border-2 border-slate-500 rounded-md !bg-slate-400">
           <div className="p-1 text-black font-extrabold">Add BookAuthor</div>
         </div>
         <div className="flex gap-4">

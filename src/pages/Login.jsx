@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import eupheus_logo from "../../src/assets/eupheus_logo.png";
-import { useNavigate } from "react-router-dom";
 import LoginCover from "../assets/LoginCover.png";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth";
 import Cookies from "js-cookie";
 import localinstance from "../localinstance";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [Useremail, setUseremail] = useState("");
@@ -15,6 +15,7 @@ const Login = () => {
   const admin = useSelector((state) => state.auth.admin);
   const isAuth = useSelector((state) => state.auth.user);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
@@ -43,6 +44,7 @@ const Login = () => {
         Cookies.set("user", "");
         dispatch(authActions.adminLogin());
         // Cookies.set("user", "");
+        navigate("/admin/dashboard");
       }
 
       if (res.data.role === "User") {
@@ -50,6 +52,7 @@ const Login = () => {
         Cookies.set("admin", "");
         dispatch(authActions.login());
         // Cookies.set("admin", "");
+        navigate("/user");
       }
     }
     setUseremail("");

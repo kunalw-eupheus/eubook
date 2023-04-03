@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../component/Navbar/Navbar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,9 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../component/Breadcrumb/Breadcrumb";
 import AdminNavbar from "../component/Navbar/AdminNavbar";
@@ -31,7 +27,7 @@ const Books = () => {
   const [rowsPerPage, setRowsPerPage] = useState(9);
   const [searchVal, setSearchVal] = useState("");
   const [fetchdata, setfetchdata] = useState([]);
-  const [columns, setcolumns] = useState([]);
+
   const [id, setid] = useState("");
   const [searchRow, setSearchRow] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -62,15 +58,7 @@ const Books = () => {
         // accesskey: `auth74961a98ba76d4e4`,
       },
     });
-
-    console.log(res.data.message);
-    console.log(res.data.message[0]);
-    let columns = Object.keys(res.data.message[0]);
-    console.log(columns);
-    setcolumns(columns);
     setfetchdata(res.data.message);
-    // fetch1(res.data.message.id);
-    // setid(res.data.message.id);
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -336,14 +324,6 @@ const Books = () => {
                   )}
                 </TableBody>
               </Table>
-              {/* <TablePagination
-          component="div"
-          count={fetchdata.length}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
             </TableContainer>
           </div>
         </div>

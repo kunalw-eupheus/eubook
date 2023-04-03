@@ -11,7 +11,7 @@ import { Tab, Tabs } from "@mui/material";
 import Person2Icon from "@mui/icons-material/Person2";
 import PasswordIcon from "@mui/icons-material/Password";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DrawerComponent from "../DrawerComponent/DrawerComponent";
+import DrawerComponent from "../DrawerComponent/UserDrawer";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -155,22 +155,6 @@ export default function Navbar() {
                     </Button>
                   </NavLink>
                 </div>
-                {/* <div className="flex gap-[1rem]  !font-normal !text-lg ">
-                  <NavLink
-                    key={3}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "activeNav !rounded-[30px]"
-                        : "!rounded-[30px] inactive"
-                    }
-                    to="wishlist"
-                    end
-                  >
-                    <Button className="!text-white  !text-lg !px-8   !py-3 !rounded-[30px]">
-                      Wishlist
-                    </Button>
-                  </NavLink>
-                </div> */}
               </div>
 
               <IconButton

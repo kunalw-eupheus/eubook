@@ -4,8 +4,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
 } from "@mui/material";
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -13,7 +11,6 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useSelector } from "react-redux";
@@ -32,7 +29,7 @@ const DrawerComponent = () => {
     Cookies.remove("admin");
     dispatch(authActions.logout());
     {
-      isAuth ? navigate("user/") : navigate("/admin");
+      isAuth ? navigate("/user") : navigate("/admin");
     }
   };
   return (

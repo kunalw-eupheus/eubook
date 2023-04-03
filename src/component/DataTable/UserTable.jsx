@@ -21,7 +21,7 @@ import TextField from "@mui/material/TextField";
 import { Toolbar } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Calender from "../Calender/Calender";
+import Calender from "../Calendar/Calendar";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
@@ -56,10 +56,7 @@ export default function UserTable(Date) {
     });
 
     let data = res.data.message;
-    console.log(res.data.message[0].UserCategory.category);
-    // let columns = Object.keys(res.data.message[0]);
-    // console.log(columns);
-    // setcolumns(columns);
+
     setfetchdata(res.data.message);
     // fetch1(res.data.message.id);
   };
@@ -69,7 +66,6 @@ export default function UserTable(Date) {
   };
 
   const handlestatus = async (id, stat) => {
-    console.log(stat);
     const res = await localinstance({
       url: `user/update/status/${id}`,
       method: "PUT",
@@ -81,18 +77,15 @@ export default function UserTable(Date) {
         // accesskey: `auth74961a98ba76d4e4`,
       },
     });
-    console.log(res);
-    console.log(id);
+
     let temp = [...fetchdata];
     for (let obj of temp) {
-      console.log(obj.status);
       if (id === obj.id) {
         obj.status = !stat;
       }
     }
     // fetch();
     setfetchdata(temp);
-    console.log(fetchdata);
   };
   const navigate = useNavigate();
 

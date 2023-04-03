@@ -5,7 +5,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 const Breadcrumb = () => {
   const breadcrumbs = [
-    <Link underline="hover" key="1" color=" blue" href="/">
+    <Link underline="hover" key="1" color=" blue">
       DashBoard
     </Link>,
     <Link
