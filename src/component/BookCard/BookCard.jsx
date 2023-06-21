@@ -15,7 +15,10 @@ const BookCard = (props) => {
 
   return (
     <div className="rounded-lg shadow-xl shadow-[#b6b1b195] hover:cursor-pointer group   ">
-      <div className="mt-2 relative w-[100%] " onClick={handleClick}>
+      <div
+        className="mt-2 relative w-[100%] "
+        onClick={props.type === "allBooks" ? "" : handleClick}
+      >
         <div>
           <img
             src={props.bookcover}

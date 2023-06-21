@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const fetch = async () => {
     const res = await localinstance({
-      url: `bookassign/get/user/unassignBooks/${Cookies.get("id")}`,
+      url: `bookassign/get/user/assignBooks/${Cookies.get("id")}`,
       method: "GET",
       headers: {
         Authorization: `${Cookies.get("token")}`,
@@ -29,12 +29,12 @@ const Dashboard = () => {
     for (let obj of data) {
       console.log(obj.id);
       temp.push({
-        book_cover: obj.book_cover,
-        grade: obj.gradeMaster.grade,
-        series: obj.seriesMaster.series,
-        subject: obj.subjectMaster.subject,
-        id: obj.id,
-        name: obj.name,
+        book_cover: obj.book.book_cover,
+        grade: obj.book.gradeMaster.grade,
+        series: obj.book.seriesMaster.series,
+        subject: obj.book.subjectMaster.subject,
+        id: obj.book.id,
+        name: obj.book.name,
       });
     }
     setfetchbook(temp);

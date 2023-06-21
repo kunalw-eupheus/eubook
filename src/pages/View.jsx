@@ -64,11 +64,12 @@ const View = () => {
     });
     console.log(res.data.message);
     let bookdata = res.data.message;
+    console.log(res.data.slug[0]);
     setCurrentSem(res.data.slug[0]);
     if (bookdata.length === 0) {
       alert("bookmaterial is empty");
     }
-
+    console.log("DATA", res.data);
     setfetchbook(res.data);
     // setfetchbook1(res.data.slug);
     setLoading(false);
@@ -76,11 +77,14 @@ const View = () => {
 
   const changeSem = (value) => {
     setCurrentSem(value);
+    console.log("change");
     console.log(value);
   };
 
   const returnData = () => {
     const data = fetchbook.message.filter((item) => item.sl === currentSem);
+
+    console.log("book --");
     console.log(data);
     return data;
   };

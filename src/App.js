@@ -17,9 +17,9 @@ import AssignBooks from "./pages/AssignBooks";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UserRoute from "./routes/UserRoute";
 import UserBook from "./pages/UserBook";
-
 import PageNotFound from "./pages/PageNotFound";
-
+import Grade from "./pages/Grade";
+import BookType from "./pages/BookType";
 function App() {
   const isAuth = useSelector((state) => state.auth.user);
   const MsAuth = useSelector((state) => state.auth.msAuth);
@@ -63,6 +63,9 @@ function App() {
               path="/admin/all_books/add_bookAuthor"
               element={<Author />}
             />
+
+            <Route path="admin/all_books/add_grade" element={<Grade />} />
+            <Route path="admin/all_books/add_bookType" element={<BookType />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/all_books/wish_list" element={<WishList />} />
             <Route

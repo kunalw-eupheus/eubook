@@ -43,6 +43,7 @@ const AllBooks = () => {
             {fetchbook.map((data) => (
               <div className="mb-[5%]">
                 <BookCard
+                  type={"allBooks"}
                   bookcover={data.book_cover}
                   name={data.name}
                   src={"all_books"}
