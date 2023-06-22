@@ -30,19 +30,37 @@ export default function AuthorTable() {
     fetch();
   }, []);
 
-  const deleteid = async (id) => {
-    console.log(id);
+  // const deleteid = async (id) => {
+  //   console.log(id);
+  //   const res = await instance({
+  //     url: `/author/delete/${id}`,
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: `${Cookies.get("token")}`,
+  //       // accesskey: `auth74961a98ba76d4e4`,
+  //     },
+  //   });
+  //   console.log(res.data.message);
+  //   await fetch();
+  // };
+
+  const Update = async (id, status) => {
+    console.log("UPDATE ID", id);
+    console.log("Status", status);
     const res = await instance({
-      url: `/author/delete/${id}`,
-      method: "DELETE",
+      url: `author/update/status/${id}`,
+      method: "PUT",
+      data: {
+        status: !status,
+      },
       headers: {
         Authorization: `${Cookies.get("token")}`,
-        // accesskey: `auth74961a98ba76d4e4`,
       },
     });
     console.log(res.data.message);
     await fetch();
   };
+
   const fetch = async (id) => {
     const res = await localinstance({
       url: `author/get/all`,
@@ -73,6 +91,30 @@ export default function AuthorTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchdata.length) : 0;
 
+  const deleteid = async (id) => {
+    console.log(id);
+    try {
+      const res = await instance({
+        url: `author/delete/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `${Cookies.get("token")}`,
+          // accesskey: `auth74961a98ba76d4e4`,
+        },
+      });
+      console.log(res.data.message);
+
+      //   await fetch();
+    } catch (error) {
+      console.log(error.response.data.message.field_name);
+      if (error.response.data.message.field_name === "book_fk (index)") {
+        alert(
+          "The author cannot be deleted at this time as it is currently in use."
+        );
+      }
+    }
+    await fetch();
+  };
   return (
     <div className=" flex flex-col gap-5 sm:flex-row sm:gap-5 ">
       <div className="flex w-full md:w-[70%]">
@@ -105,12 +147,22 @@ export default function AuthorTable() {
                   {/* <TableCell align="left" className="bg-slate-200">
                     {data.series}
                   </TableCell> */}
-                  <TableCell align="left" className="bg-slate-200">
-                    {data.status === true ? <Visibility /> : <VisibilityOff />}
+                  <TableCell
+                    align="left"
+                    className="bg-slate-200"
+                    onClick={() => {
+                      Update(data.id, data.status);
+                    }}
+                  >
+                    {data.status === true ? (
+                      <Visibility className="!text-[#367E18]" />
+                    ) : (
+                      <VisibilityOff className="!text-[#B31312]" />
+                    )}
                   </TableCell>
                   <TableCell align="left" className="bg-slate-200">
                     <DeleteOutlineIcon
-                      className=""
+                      className="!text-[#B31312]"
                       onClick={() => {
                         deleteid(data.id);
                       }}

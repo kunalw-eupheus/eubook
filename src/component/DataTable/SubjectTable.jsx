@@ -28,15 +28,39 @@ export default function SubjectTable() {
     fetch();
   }, []);
 
+  // const deleteid = async (id) => {
+  //   const res = await instance({
+  //     url: `subject/delete/${id}`,
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: `${Cookies.get("token")}`,
+  //       // accesskey: `auth74961a98ba76d4e4`,
+  //     },
+  //   });
+  //   await fetch();
+  // };
   const deleteid = async (id) => {
-    const res = await instance({
-      url: `subject/delete/${id}`,
-      method: "DELETE",
-      headers: {
-        Authorization: `${Cookies.get("token")}`,
-        // accesskey: `auth74961a98ba76d4e4`,
-      },
-    });
+    console.log(id);
+    try {
+      const res = await instance({
+        url: `subject/delete/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `${Cookies.get("token")}`,
+          // accesskey: `auth74961a98ba76d4e4`,
+        },
+      });
+      console.log(res.data.message);
+
+      //   await fetch();
+    } catch (error) {
+      console.log(error.response.data.message.field_name);
+      if (error.response.data.message.field_name === "book_fk_3 (index)") {
+        alert(
+          "The subject cannot be deleted at this time as it is currently in use."
+        );
+      }
+    }
     await fetch();
   };
   const fetch = async (id) => {
@@ -63,6 +87,22 @@ export default function SubjectTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchdata.length) : 0;
 
+  const Update = async (id, status) => {
+    console.log("UPDATE ID", id);
+    console.log("Status", status);
+    const res = await instance({
+      url: `subject/update/status/${id}`,
+      method: "PUT",
+      data: {
+        status: !status,
+      },
+      headers: {
+        Authorization: `${Cookies.get("token")}`,
+      },
+    });
+    console.log(res.data.message);
+    await fetch();
+  };
   return (
     <div className="flex flex-col gap-5 sm:flex-row sm:gap-5 ">
       <div className="flex w-full md:w-[70%]">
@@ -95,16 +135,22 @@ export default function SubjectTable() {
                     <TableCell align="left" className="bg-slate-200">
                       {data.subject}
                     </TableCell>
-                    <TableCell align="left" className="bg-slate-200">
+                    <TableCell
+                      align="left"
+                      className="bg-slate-200"
+                      onClick={() => {
+                        Update(data.id, data.status);
+                      }}
+                    >
                       {data.status === true ? (
-                        <Visibility />
+                        <Visibility className="!text-[#367E18]" />
                       ) : (
-                        <VisibilityOff />
+                        <VisibilityOff className="!text-[#B31312]" />
                       )}
                     </TableCell>
                     <TableCell align="left" className="bg-slate-200">
                       <DeleteOutlineIcon
-                        className=""
+                        className="!text-[#B31312]"
                         onClick={() => {
                           deleteid(data.id);
                         }}

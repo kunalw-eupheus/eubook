@@ -18,8 +18,9 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import localinstance from "../../localinstance";
 import Loader from "../Loader/Loader";
 import AddGrade from "../AddForm/AddGrade";
+import AddBookType from "../AddForm/AddBookType";
 
-export default function GradeTable() {
+export default function BookTypeTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [isloading, setloading] = useState(true);
@@ -31,40 +32,45 @@ export default function GradeTable() {
 
   const deleteid = async (id) => {
     console.log(id);
-    try {
-      const res = await instance({
-        url: `grade/delete/${id}`,
-        method: "DELETE",
-        headers: {
-          Authorization: `${Cookies.get("token")}`,
-          // accesskey: `auth74961a98ba76d4e4`,
-        },
-      });
-      console.log(res.data.message);
-
-      //   await fetch();
-    } catch (error) {
-      console.log(error.response.data.message.field_name);
-      if (error.response.data.message.field_name === "book_fk_1 (index)") {
-        alert(
-          "The grade cannot be deleted at this time as it is currently in use."
-        );
-      }
-    }
+    const res = await instance({
+      url: `booktype/delete/${id}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `${Cookies.get("token")}`,
+        // accesskey: `auth74961a98ba76d4e4`,
+      },
+    });
     await fetch();
   };
   const fetch = async (id) => {
     const res = await localinstance({
-      url: `grade/get/all`,
+      url: `booktype/get/all`,
       method: "GET",
       headers: {
         Authorization: `${Cookies.get("token")}`,
         // accesskey: `auth74961a98ba76d4e4`,
       },
     });
-    console.log(res.data.message);
+
     setfetchdata(res.data.message);
     setloading(false);
+  };
+
+  const Update = async (id, status) => {
+    console.log("UPDATE ID", id);
+    console.log("Status", status);
+    const res = await instance({
+      url: `booktype/update/status/${id}`,
+      method: "PUT",
+      data: {
+        status: !status,
+      },
+      headers: {
+        Authorization: `${Cookies.get("token")}`,
+      },
+    });
+    console.log(res.data.message);
+    await fetch();
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -77,23 +83,6 @@ export default function GradeTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchdata.length) : 0;
 
-  const Update = async (id, status) => {
-    console.log("UPDATE ID", id);
-    console.log("Status", status);
-    const res = await instance({
-      url: `grade/update/status/${id}`,
-      method: "PUT",
-      data: {
-        status: !status,
-      },
-      headers: {
-        Authorization: `${Cookies.get("token")}`,
-      },
-    });
-    console.log(res.data.message);
-    await fetch();
-  };
-
   return (
     <div className="flex flex-col gap-5 sm:flex-row sm:gap-5 ">
       <div className="flex w-full md:w-[70%]">
@@ -101,7 +90,7 @@ export default function GradeTable() {
           <Table aria-label="simple table">
             <TableHead className="!bg-slate-400 !w-full">
               <TableRow>
-                {["Grade", "Active", "Delete"].map((header, i) => (
+                {["BookType", "Active", "Delete"].map((header, i) => (
                   <TableCell className="!font-black text-lg !bg-slate-500">
                     {header}
                   </TableCell>
@@ -124,7 +113,7 @@ export default function GradeTable() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="left" className="bg-slate-200">
-                      {data.grade}
+                      {data.name}
                     </TableCell>
                     <TableCell
                       align="left"
@@ -168,7 +157,7 @@ export default function GradeTable() {
         </TableContainer>
       </div>
       <div className="flex w-full md:w-[60%] p-4">
-        <AddGrade fetch={fetch} />
+        <AddBookType fetch={fetch} />
       </div>
     </div>
   );

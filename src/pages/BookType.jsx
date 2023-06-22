@@ -4,8 +4,9 @@ import AdminNavbar from "../component/Navbar/AdminNavbar";
 import SubjectTable from "../component/DataTable/SubjectTable";
 import GradeTable from "../component/DataTable/GradeTable";
 import Menu from "../component/Menu/Menu";
+import BookTypeTable from "../component/DataTable/BookTypeTable";
 
-const Grade = () => {
+const BookType = () => {
   return (
     <>
       <div>
@@ -25,10 +26,10 @@ const Grade = () => {
 
       <div className="">
         <div className="p-6 mt-6">
-          <GradeTable />
+          <BookTypeTable />
         </div>
       </div>
     </>
   );
 };
-export default Grade;
+export default BookType;

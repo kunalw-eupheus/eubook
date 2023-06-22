@@ -30,19 +30,20 @@ export default function AuthorTable() {
     fetch();
   }, []);
 
-  const deleteid = async (id) => {
-    console.log(id);
-    const res = await localinstance({
-      url: `/book/delete/${id}`,
-      method: "DELETE",
-      headers: {
-        Authorization: `${Cookies.get("token")}`,
-        // accesskey: `auth74961a98ba76d4e4`,
-      },
-    });
-    console.log(res.data.message);
-    await fetch();
-  };
+  // const deleteid = async (id) => {
+  //   console.log(id);
+  //   const res = await localinstance({
+  //     url: `/book/delete/${id}`,
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: `${Cookies.get("token")}`,
+  //       // accesskey: `auth74961a98ba76d4e4`,
+  //     },
+  //   });
+  //   console.log(res.data.message);
+  //   await fetch();
+  // };
+
   const fetch = async (id) => {
     const res = await localinstance({
       url: `book/get/all`,
@@ -73,6 +74,33 @@ export default function AuthorTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchdata.length) : 0;
 
+  const deleteid = async (id) => {
+    console.log(id);
+    try {
+      const res = await instance({
+        url: `book/delete/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `${Cookies.get("token")}`,
+          // accesskey: `auth74961a98ba76d4e4`,
+        },
+      });
+      console.log(res.data.message);
+
+      //   await fetch();
+    } catch (error) {
+      console.log(error.response.data.message.field_name);
+      if (
+        error.response.data.message.field_name === "booksassign_fk_1 (index)"
+      ) {
+        alert(
+          "The book cannot be deleted at this time as it is currently in use."
+        );
+      }
+    }
+    await fetch();
+  };
+
   return (
     <div className=" flex flex-col gap-5 sm:flex-row sm:gap-5 ">
       <div className="flex w-full md:w-[70%]">
@@ -80,7 +108,7 @@ export default function AuthorTable() {
           <Table aria-label="simple table">
             <TableHead className="!bg-slate-400 !w-full">
               <TableRow>
-                {["BookName", "Grade", "Subject", "Series", ""].map(
+                {["BookName", "Grade", "Subject", "Series", "Delete"].map(
                   (header, i) => (
                     <TableCell className="!font-black text-lg !bg-slate-500">
                       {header}
@@ -121,7 +149,7 @@ export default function AuthorTable() {
                   </TableCell> */}
                   <TableCell align="left" className="bg-slate-200">
                     <DeleteOutlineIcon
-                      className=""
+                      className="!text-[#B31312]"
                       onClick={() => {
                         deleteid(data.id);
                       }}
