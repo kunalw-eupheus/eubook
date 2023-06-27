@@ -69,24 +69,46 @@ const View = () => {
     if (bookdata.length === 0) {
       alert("bookmaterial is empty");
     }
-    console.log("DATA", res.data);
+    console.log("FETCHDATA", res.data);
     setfetchbook(res.data);
     // setfetchbook1(res.data.slug);
     setLoading(false);
+    // returnData();
   };
 
   const changeSem = (value) => {
+    console.log("semValue", value);
+    // console.log("Index", index);
     setCurrentSem(value);
     console.log("change");
-    console.log(value);
+    returnData();
   };
 
   const returnData = () => {
     const data = fetchbook.message.filter((item) => item.sl === currentSem);
-
     console.log("book --");
     console.log(data);
-    return data;
+    let bookData = [];
+    // for (let i = 0; i < data.length; i++) {
+    //   bookData.push({
+    //     index: i,
+    //     sl: data.sl,
+    //     url: data.url,
+    //     booktype: data.booktype,
+    //     id: data.id,
+    //   });
+    // }
+    data.map((item, index) => {
+      bookData.push({
+        index: index,
+        sl: item.sl,
+        url: item.url,
+        booktype: item.booktype,
+        id: item.id,
+      });
+    });
+    console.log(bookData);
+    return bookData;
   };
 
   console.log("tes");
@@ -109,12 +131,15 @@ const View = () => {
                       datas={fetchbook.slug}
                       semdatas={fetchbook.message}
                       changeSem={changeSem}
+                      dat={returnData()}
                     />
                   )}
                 </div>
 
                 <div className="w-[100%] ml-[0.5rem] ">
-                  {loading ? null : <MaterialTabs datas={returnData()} />}
+                  {loading ? null : (
+                    <MaterialTabs datas={returnData()} sem={currentSem} />
+                  )}
                 </div>
               </div>
             </>
@@ -127,11 +152,14 @@ const View = () => {
                       datas={fetchbook.slug}
                       semdatas={fetchbook.index}
                       changeSem={changeSem}
+                      dat={returnData()}
                     />
                   )}
                 </div>
 
-                {loading ? null : <MaterialTabs datas={returnData()} />}
+                {loading ? null : (
+                  <MaterialTabs datas={returnData()} sem={currentSem} />
+                )}
               </div>
             </>
           )}

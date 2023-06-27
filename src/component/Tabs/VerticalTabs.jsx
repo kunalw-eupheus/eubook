@@ -26,8 +26,9 @@ const VerticalTabs = (props) => {
     console.log(newValue);
   };
 
-  console.log(props.datas);
-  console.log(props.semdatas);
+  console.log("Vertical data", props.datas);
+
+  console.log(props.dat);
   return (
     <>
       <div>
@@ -45,6 +46,7 @@ const VerticalTabs = (props) => {
               return (
                 <LinkTab
                   onClick={() => {
+                    console.log("props", e);
                     props.changeSem(e);
                   }}
                   className={`${

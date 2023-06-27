@@ -128,7 +128,7 @@ export default function GradeTable() {
                     </TableCell>
                     <TableCell
                       align="left"
-                      className="bg-slate-200"
+                      className="bg-slate-200 cursor-pointer"
                       onClick={() => {
                         Update(data.id, data.status);
                       }}
@@ -139,7 +139,10 @@ export default function GradeTable() {
                         <VisibilityOff className="!text-[#B31312]" />
                       )}
                     </TableCell>
-                    <TableCell align="left" className="bg-slate-200">
+                    <TableCell
+                      align="left"
+                      className="bg-slate-200 cursor-pointer"
+                    >
                       <DeleteOutlineIcon
                         className="!text-[#B31312]"
                         onClick={() => {

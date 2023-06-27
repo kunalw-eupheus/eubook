@@ -131,8 +131,8 @@ const AddInfo = () => {
   return (
     <>
       {/* <AdminNavbar /> */}
-      <div className="flex bg-white w-full">
-        <div className="flex flex-col justify-center border-2 border-slate-400 lg:w-full w-[90%] py-5   p-2 shadow-lg shadow-slate-400 rounded-lg">
+      <div className="flex bg-white">
+        <div className="flex flex-col justify-center border-2 border-slate-400 sm:w-full w-[90%] py-5   p-2 shadow-lg shadow-slate-400 rounded-lg">
           <div className="text-slate-400 !text-lg mb-5 mx-3">
             Basic Information
           </div>
@@ -211,12 +211,12 @@ const AddInfo = () => {
               </div>
             </div>
             <div className="flex sm:gap-[2.7rem] gap-[15%] mt-4  ">
-              <div className="mx-3  ">
+              <div className="mx-1 sm:mx-3 ">
                 School<span className="text-red-600">*</span>
               </div>
 
               {/* <BasicSelect class="!w-[70%] mt-4 mx-3" label={"select_school"} /> */}
-              <div className="!mx-3">
+              <div className=" !mx-0 sm:!mx-3 ">
                 <BasicSelect
                   // onChange={(event, value) => console.log(value)}
                   handleOrderProcessingForm={handleOrderProcessingForm}
@@ -256,7 +256,7 @@ const AddInfo = () => {
               <br></br>
             </div>
 
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-3">
               <Button variant="contained" className="" onClick={handleOnSubmit}>
                 Submit
               </Button>

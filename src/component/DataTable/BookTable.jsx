@@ -28,7 +28,7 @@ export default function AuthorTable() {
 
   useLayoutEffect(() => {
     fetch();
-  }, []);
+  }, [fetchdata]);
 
   // const deleteid = async (id) => {
   //   console.log(id);
@@ -54,11 +54,6 @@ export default function AuthorTable() {
       },
     });
 
-    console.log(res.data.message);
-    console.log(res.data.message[0]);
-    let columns = Object.keys(res.data.message[0]);
-    console.log(columns);
-    setcolumns(columns);
     setfetchdata(res.data.message);
     // fetch1(res.data.message.id);
     // setid(res.data.message.id);
@@ -147,7 +142,10 @@ export default function AuthorTable() {
                   {/* <TableCell align="left" className="bg-slate-200">
                     {data.status === true ? <Visibility /> : <VisibilityOff />}
                   </TableCell> */}
-                  <TableCell align="left" className="bg-slate-200">
+                  <TableCell
+                    align="left"
+                    className="bg-slate-200 cursor-pointer"
+                  >
                     <DeleteOutlineIcon
                       className="!text-[#B31312]"
                       onClick={() => {

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../src/pages/Login";
 import Dashboard from "../src/pages/Dashboard";
 import View from "../src/pages/View";
@@ -20,6 +20,7 @@ import UserBook from "./pages/UserBook";
 import PageNotFound from "./pages/PageNotFound";
 import Grade from "./pages/Grade";
 import BookType from "./pages/BookType";
+
 function App() {
   const isAuth = useSelector((state) => state.auth.user);
   const MsAuth = useSelector((state) => state.auth.msAuth);
@@ -37,14 +38,20 @@ function App() {
             path="/admin/dashboard"
             element={isadmin || MsAuth ? <Admin /> : <Login />}
           />
-          <Route
+          {/* <Route
+            exact
+            path="/user"
+            element={isAuth ? <Dashboard /> : navigate("/")}
+          /> */}
+          {/* <Route
             exact
             path="/user"
             element={isAuth ? <Dashboard /> : <Login />}
-          />
+          /> */}
           <Route exact path="/" element={<Login />} />
 
           <Route element={<UserRoute />}>
+            <Route exact path="/user" element={<Dashboard />} />
             <Route path="/user/:id" element={<View />} />
             <Route path="/all_books/view/:id" element={<View />} />
             <Route path="/all_books" element={<AllBooks />} />
@@ -52,7 +59,7 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/admin/all_books" element={<Books />} />
-            <Route path="/admin/addInfo" element={<AddInfo />} />
+            {/* <Route path="/admin/addInfo" element={<AddInfo />} /> */}
             <Route
               path="/admin/all_books/create_book"
               element={<CreateBook />}

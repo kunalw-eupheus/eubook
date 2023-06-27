@@ -57,7 +57,7 @@ export default function Navbar() {
     Cookies.remove("user");
 
     dispatch(authActions.logout());
-    navigate("/user");
+    navigate("/");
   };
 
   const mobileMenuId = "primary-search-account-menu-mobile";

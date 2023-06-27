@@ -9,7 +9,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import eupheus_logo from "../../assets/eupheus_logo.png";
 import { Tab, Tabs } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DrawerComponent from "../DrawerComponent/UserDrawer";
+import DrawerComponent from "../DrawerComponent/AdminDrawer";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +53,7 @@ export default function AdminNavbar() {
     Cookies.remove("user");
     Cookies.remove("admin");
     dispatch(authActions.logout());
-    navigate("/user");
+    navigate("/");
   };
   const handleClickBooks = () => {
     navigate("/admin/all_books");

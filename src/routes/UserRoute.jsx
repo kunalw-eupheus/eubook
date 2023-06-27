@@ -14,7 +14,7 @@ const UserRoute = () => {
       {isAuth ? (
         <Outlet />
       ) : (
-        <Navigate to="/user" state={{ from: location }} replace />
+        <Navigate to="/" state={{ from: location }} replace />
       )}
     </>
   );

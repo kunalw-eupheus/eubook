@@ -298,6 +298,7 @@ const AddBook = () => {
   const handleCreateBook = async () => {
     setopen(true);
     await postData();
+    await fetch();
     clear();
   };
 

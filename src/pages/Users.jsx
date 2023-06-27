@@ -9,6 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 import { useState } from "react";
 import AddInfo from "../component/AddForm/AddInfo";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -58,12 +59,18 @@ const Users = () => {
               {/* <DialogContentText id="alert-dialog-description">
                 New Subject Added Successfully!!!
               </DialogContentText> */}
-              <div className="w-[70%] mx-[5rem] mt-[1rem] shadow-md shadow-black">
+              <div className="w-full mx-[2rem] sm:w-[70%]  sm:mx-[5rem] mt-[1rem] shadow-md shadow-black">
                 <AddInfo />
               </div>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handlesubject}>Close</Button>
+              <Button
+                onClick={handlesubject}
+                variant="contained"
+                className="!bg-[#B31312]"
+              >
+                Close
+              </Button>
             </DialogActions>
           </Dialog>
         </div>

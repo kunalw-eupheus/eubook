@@ -283,7 +283,10 @@ export default function UserTable(Date) {
                         {data.UserCategory.category}
                       </TableCell>
 
-                      <TableCell align="left" className="bg-slate-200">
+                      <TableCell
+                        align="left"
+                        className="bg-slate-200 cursor-pointer"
+                      >
                         <div onClick={() => handlestatus(data.id, data.status)}>
                           {data.status === true ? (
                             <Visibility />
@@ -296,7 +299,7 @@ export default function UserTable(Date) {
                         {data.UserCategory.category === "Admin" ? (
                           <div></div>
                         ) : (
-                          <div className="flex gap-2 ">
+                          <div className="flex gap-2 cursor-pointer">
                             <Button
                               variant="contained"
                               onClick={() => handleassignbook(data.id)}
@@ -307,7 +310,7 @@ export default function UserTable(Date) {
                             <div>
                               <Button
                                 variant="contained"
-                                className="!w-full gap-1 !bg-slate-500"
+                                className="!w-full gap-1 !bg-slate-500 cursor-pointer"
                                 onClick={handleaddexpiry}
                               >
                                 Add <span>Expiry</span>
