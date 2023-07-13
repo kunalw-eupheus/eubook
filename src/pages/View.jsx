@@ -114,55 +114,59 @@ const View = () => {
   console.log("tes");
   // console.log(fetchbook1);
   return (
-    <div className="w-full h-screen">
+    <div className="w-full">
       <div>
         <Navbar />
       </div>
 
-      <div className=" w-full  h-screen  pt-[13vh]  py-3">
-        <div className="p-2  text-[2.5rem] font-semibold">Books Material</div>
-        <div className="border-stone-300  ">
-          {isMatch ? (
-            <>
-              <div className="flex flex-col w-full ">
-                <div className="">
-                  {loading ? null : (
-                    <VerticalTabs
-                      datas={fetchbook.slug}
-                      semdatas={fetchbook.message}
-                      changeSem={changeSem}
-                      dat={returnData()}
-                    />
-                  )}
-                </div>
+      <div className="   ">
+        <div className="pt-[4.4rem]">
+          <div className="p-2 text-[2rem] md:text-[2.5rem] font-semibold">
+            Books Material
+          </div>
+          <div className="border-stone-300  ">
+            {isMatch ? (
+              <>
+                <div className="flex-col  ">
+                  <div className="mx-[2rem] w-[40%]">
+                    {loading ? null : (
+                      <VerticalTabs
+                        datas={fetchbook.slug}
+                        semdatas={fetchbook.message}
+                        changeSem={changeSem}
+                        dat={returnData()}
+                      />
+                    )}
+                  </div>
 
-                <div className="w-[100%] ml-[0.5rem] ">
+                  <div className="w-[90%] ml-[0.5rem] ">
+                    {loading ? null : (
+                      <MaterialTabs datas={returnData()} sem={currentSem} />
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className=" flex  ml-4 ">
+                  <div className=" py-2 mt-[4rem] w-[10%] ">
+                    {loading ? null : (
+                      <VerticalTabs
+                        datas={fetchbook.slug}
+                        semdatas={fetchbook.index}
+                        changeSem={changeSem}
+                        dat={returnData()}
+                      />
+                    )}
+                  </div>
+
                   {loading ? null : (
                     <MaterialTabs datas={returnData()} sem={currentSem} />
                   )}
                 </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex flex-row w-full ml-4 h-[100%]">
-                <div className=" py-2 mt-[4rem] w-[10%] ">
-                  {loading ? null : (
-                    <VerticalTabs
-                      datas={fetchbook.slug}
-                      semdatas={fetchbook.index}
-                      changeSem={changeSem}
-                      dat={returnData()}
-                    />
-                  )}
-                </div>
-
-                {loading ? null : (
-                  <MaterialTabs datas={returnData()} sem={currentSem} />
-                )}
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

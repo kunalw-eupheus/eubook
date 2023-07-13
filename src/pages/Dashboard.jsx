@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import Loader from "../component/Loader/Loader";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Dashboard = () => {
   const [fetchbook, setfetchbook] = useState([]);
@@ -50,7 +51,11 @@ const Dashboard = () => {
       setLoading(false);
       if (error.response.data.message.trim() === "Login Expiry") {
         console.log(error.response.data.message);
-        alert("login expired");
+        Swal.fire({
+          title: "Login Expired!!!",
+          // text: "Login Expired!!!",
+          icon: "error",
+        });
         Cookies.remove("user");
         Cookies.remove("role");
         Cookies.remove("token");

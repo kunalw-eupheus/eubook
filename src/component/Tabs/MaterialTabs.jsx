@@ -70,7 +70,11 @@ const MaterialTabs = (props) => {
 
         {/* {props.datas.length === 0 ? ( */}
         <div>
-          <iframe src={data} width="80%" className=" mt-[2rem] h-[60vh]" />
+          <iframe
+            src={data}
+            width="80%"
+            className="mt-[1.5rem] sm:mt-[2rem] h-[55vh] sm:h-[60vh]"
+          />
         </div>
         {/* ) : (
           <div>

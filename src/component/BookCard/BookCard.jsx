@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const BookCard = (props) => {
   const navigate = useNavigate();
@@ -14,7 +15,17 @@ const BookCard = (props) => {
   };
 
   const handleallBook = () => {
-    alert("Please buy the book to access book content");
+    // alert("Please buy the book to access book content");
+    // swal.fire({
+    //   title: "Example",
+    //   text: "Swal injected",
+    //   icon: "success",
+    // });
+    Swal.fire({
+      // title: "Example",
+      text: "Please buy the book to access book content!!!",
+      icon: "warning",
+    });
   };
 
   return (

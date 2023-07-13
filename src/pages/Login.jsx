@@ -9,6 +9,8 @@ import localinstance from "../localinstance";
 import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
 import Loader from "../component/Loader/Loader";
+import Cover from "../assets/Login.png";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [Useremail, setUseremail] = useState("");
@@ -35,15 +37,21 @@ const Login = () => {
 
     console.log(res.data.id);
     console.log(res.data.role);
-    if (res.data.id && res.data.role === "undefined") {
-      alert("Incorrect UserId or Password");
+    if (!res.data.id) {
+      // alert("Incorrect UserId or Password");
+      Swal.fire({
+        // title: "Example",
+        text: "Incorrect UserId or Password",
+        icon: "error",
+      });
+      setLoading(false);
     }
-    setLoading(false);
+
     if (res.data.id && res.data.token) {
       Cookies.set("id", `${res.data.id}`);
       Cookies.set("token", `${res.data.token}`);
       Cookies.set("role", `${res.data.role}`);
-
+      setLoading(false);
       if (res.data.role === "Admin") {
         Cookies.set("admin", true);
         // Cookies.set("user", "");
@@ -76,22 +84,29 @@ const Login = () => {
   };
 
   const handleEnter = (event) => {
+    setLoading(true);
     if (event.key === "Enter") {
       handleSubmit();
+    } else {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-between">
-      <div>
-        <img src={LoginCover}></img>
+    <div className="flex justify-between h-screen">
+      <div className="">
+        <img
+          src={Cover}
+          className="h-0 w-0 sm:h-[712px] sm:w-[1500px] md:h-[712px] md:w-[2500px] lg:h-[712px] lg:w-[4800px]"
+        ></img>
+        {/* <img src={Cover} width={"1200px"} height={"1500px"} wi></img> */}
       </div>
 
-      <div
-        className="flex  flex-col  h-screen   p-5 w-[30vw] rounded-lg  "
+      <form
+        className="flex  flex-col  h-screen   p-5 w-[150%] rounded-lg  "
         style={{ "box-shadow": "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px" }}
         // onKeyDown={handleSubmit}
-        // onSubmit={handleSubmit}
+        onSubmit={(event) => handleEnter(event)}
       >
         <div className="flex justify-center mb-[10vh]">
           <img src={eupheus_logo} className=" w-[280px]" alt="img"></img>
@@ -101,7 +116,7 @@ const Login = () => {
         </h3>
         <div
           className="formGroup flex-col flex p-5 ml-10 "
-          // onKeyUp={(event) => handleEnter(event)}
+          onKeyUp={(event) => handleEnter(event)}
         >
           <div className="flex flex-col !justify-start !items-start mb-[3vh]">
             <label htmlFor="" className=" text-lg font-semibold ">
@@ -112,7 +127,7 @@ const Login = () => {
               value={Useremail}
               className="p-3 border rounded-lg shadow-md w-full "
               onChange={(e) => setUseremail(e.target.value)}
-              onKeyUp={(event) => handleEnter(event)}
+              // onKeyUp={(event) => handleEnter(event)}
             />
           </div>
           <div className="flex flex-col !justify-start !items-start mb-[3vh]">
@@ -124,7 +139,7 @@ const Login = () => {
               value={password}
               className="p-3 border rounded-lg shadow-md w-full "
               onChange={(e) => setPassword(e.target.value)}
-              onKeyUp={(event) => handleEnter(event)}
+              // onKeyUp={(event) => handleEnter(event)}
             />
           </div>
 
@@ -136,12 +151,18 @@ const Login = () => {
               sx={{ padding: "10px" }}
               onClick={handleSubmit}
             >
-              {/* {loading ? <Loader status={false} /> : "Login"} */}
-              Login
+              {/* {loading ? "hi" : "Login"} */}
+              {loading ? (
+                <>
+                  <Loader />
+                </>
+              ) : (
+                <div>Login</div>
+              )}
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

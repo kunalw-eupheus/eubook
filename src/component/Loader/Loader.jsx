@@ -15,6 +15,7 @@
 import * as React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import Cookies from "js-cookie";
 
 export default function Loader({ status }) {
   return (
@@ -24,13 +25,34 @@ export default function Loader({ status }) {
           <CircularProgress />
         </Box>
       ) : (
-        <Box className="flex text-black">
-          <CircularProgress />
+      <Box className="flex text-black">
+       <CircularProgress />
         </Box>
       )} */}
-      <Box className="flex justify-center items-center mt-[6rem] ">
+      {/* <Box className="flex justify-center items-center mt-[6rem] ">
         <CircularProgress />
-      </Box>
+      </Box> */}
+      {Cookies.get("token") ? (
+        Cookies.get("role") === "Admin" ? (
+          <>
+            <Box className="flex justify-center ">
+              <CircularProgress />
+            </Box>
+          </>
+        ) : (
+          <>
+            <Box className="flex justify-center items-center mt-[6rem]">
+              <CircularProgress />
+            </Box>
+          </>
+        )
+      ) : (
+        <>
+          <Box className="flex">
+            <CircularProgress color="secondary" />
+          </Box>
+        </>
+      )}
     </>
   );
 }

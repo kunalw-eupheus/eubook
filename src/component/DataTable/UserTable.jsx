@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import Calender from "../Calendar/Calendar";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import Loader from "../Loader/Loader";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -40,12 +41,14 @@ export default function UserTable(Date) {
   const [searchRow, setSearchRow] = useState([]);
   const [expiry, setExpiry] = useState("");
   const [datemessage, setDatemessage] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useLayoutEffect(() => {
     fetch();
   }, []);
 
   const fetch = async () => {
+    setLoading(true);
     const res = await localinstance({
       url: `user/get/all`,
       method: "GET",
@@ -59,6 +62,7 @@ export default function UserTable(Date) {
 
     setfetchdata(res.data.message);
     // fetch1(res.data.message.id);
+    setLoading(false);
   };
 
   const handleaddexpiry = () => {
@@ -248,113 +252,124 @@ export default function UserTable(Date) {
                 ))}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {searchRow.length === 0
-                ? (rowsPerPage > 0
-                    ? fetchdata.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                    : fetchdata
-                  ).map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.firstName}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.lastName}
-                      </TableCell>
-                      {/* <TableCell align="left" className="bg-slate-200">
+            {loading ? (
+              <div>
+                <Loader />
+              </div>
+            ) : (
+              <TableBody>
+                {searchRow.length === 0
+                  ? (rowsPerPage > 0
+                      ? fetchdata.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                      : fetchdata
+                    ).map((data, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.firstName}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.lastName}
+                        </TableCell>
+                        {/* <TableCell align="left" className="bg-slate-200">
                     {data.status === true ? <Visibility /> : <VisibilityOff />}
                   </TableCell> */}
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.email}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.phone}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.createdAt}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.UserCategory.category}
-                      </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.email}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.phone}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.createdAt}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.UserCategory.category}
+                        </TableCell>
 
-                      <TableCell
-                        align="left"
-                        className="bg-slate-200 cursor-pointer"
-                      >
-                        <div onClick={() => handlestatus(data.id, data.status)}>
-                          {data.status === true ? (
-                            <Visibility />
+                        <TableCell
+                          align="left"
+                          className="bg-slate-200 cursor-pointer"
+                        >
+                          <div
+                            onClick={() => handlestatus(data.id, data.status)}
+                          >
+                            {data.status === true ? (
+                              <Visibility />
+                            ) : (
+                              <VisibilityOff />
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.UserCategory.category === "Admin" ? (
+                            <div></div>
                           ) : (
-                            <VisibilityOff />
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.UserCategory.category === "Admin" ? (
-                          <div></div>
-                        ) : (
-                          <div className="flex gap-2 cursor-pointer">
-                            <Button
-                              variant="contained"
-                              onClick={() => handleassignbook(data.id)}
-                              className=" !w-full gap-1"
-                            >
-                              Assign <span> Books</span>
-                            </Button>
-                            <div>
+                            <div className="flex gap-2 cursor-pointer">
                               <Button
                                 variant="contained"
-                                className="!w-full gap-1 !bg-slate-500 cursor-pointer"
-                                onClick={handleaddexpiry}
+                                onClick={() => handleassignbook(data.id)}
+                                className=" !w-full gap-1"
                               >
-                                Add <span>Expiry</span>
+                                Assign <span> Books</span>
                               </Button>
-                              <Dialog
-                                PaperProps={{
-                                  sx: {
-                                    backgroundColor: "",
-                                  },
-                                }}
-                                open={open}
-                                aria-labelledby="alert-dialog-title"
-                                aria-describedby="alert-dialog-description"
-                                TransitionComponent={Transition}
+                              <div>
+                                <Button
+                                  variant="contained"
+                                  className="!w-full gap-1 !bg-slate-500 cursor-pointer"
+                                  onClick={handleaddexpiry}
+                                >
+                                  Add <span>Expiry</span>
+                                </Button>
+                                <Dialog
+                                  PaperProps={{
+                                    sx: {
+                                      backgroundColor: "",
+                                    },
+                                  }}
+                                  open={open}
+                                  aria-labelledby="alert-dialog-title"
+                                  aria-describedby="alert-dialog-description"
+                                  TransitionComponent={Transition}
+                                >
+                                  <DialogContent className="">
+                                    <div className=" mx-[5rem] mt-[1rem] shadow-md shadow-black">
+                                      <Calender
+                                        handledateprops={handledateprops}
+                                      />
+                                    </div>
+                                  </DialogContent>
+                                  <DialogActions>
+                                    <Button
+                                      onClick={() =>
+                                        handlecalenderdate(data.id)
+                                      }
+                                      variant="contained"
+                                    >
+                                      Set Date
+                                    </Button>
+                                  </DialogActions>
+                                </Dialog>
+                              </div>
+                              <Button
+                                variant="contained"
+                                className=" !w-full gap-1"
+                                onClick={() => handlebook(data.id)}
                               >
-                                <DialogContent className="">
-                                  <div className=" mx-[5rem] mt-[1rem] shadow-md shadow-black">
-                                    <Calender
-                                      handledateprops={handledateprops}
-                                    />
-                                  </div>
-                                </DialogContent>
-                                <DialogActions>
-                                  <Button
-                                    onClick={() => handlecalenderdate(data.id)}
-                                    variant="contained"
-                                  >
-                                    Set Date
-                                  </Button>
-                                </DialogActions>
-                              </Dialog>
+                                Books
+                              </Button>
                             </div>
-                            <Button
-                              variant="contained"
-                              className=" !w-full gap-1"
-                              onClick={() => handlebook(data.id)}
-                            >
-                              Books
-                            </Button>
-                          </div>
-                        )}
-                      </TableCell>
+                          )}
+                        </TableCell>
 
-                      {/* <TableCell align="left" className="bg-slate-200">
+                        {/* <TableCell align="left" className="bg-slate-200">
                     <DeleteOutlineIcon
                       className=""
                       onClick={() => {
@@ -362,103 +377,107 @@ export default function UserTable(Date) {
                       }}
                     />
                   </TableCell> */}
-                      {/* <TableCell align="right">{row.protein}</TableCell> */}
-                    </TableRow>
-                  ))
-                : (rowsPerPage > 0
-                    ? searchRow.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                    : searchRow
-                  ).map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.firstName}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.lastName}
-                      </TableCell>
-                      {/* <TableCell align="left" className="bg-slate-200">
+                        {/* <TableCell align="right">{row.protein}</TableCell> */}
+                      </TableRow>
+                    ))
+                  : (rowsPerPage > 0
+                      ? searchRow.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                      : searchRow
+                    ).map((data, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.firstName}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.lastName}
+                        </TableCell>
+                        {/* <TableCell align="left" className="bg-slate-200">
                     {data.status === true ? <Visibility /> : <VisibilityOff />}
                   </TableCell> */}
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.email}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.phone}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.createdAt}
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.UserCategory.category}
-                      </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.email}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.phone}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.createdAt}
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.UserCategory.category}
+                        </TableCell>
 
-                      <TableCell align="left" className="bg-slate-200">
-                        <div onClick={() => handlestatus(data.id, data.status)}>
-                          {data.status === true ? (
-                            <Visibility />
+                        <TableCell align="left" className="bg-slate-200">
+                          <div
+                            onClick={() => handlestatus(data.id, data.status)}
+                          >
+                            {data.status === true ? (
+                              <Visibility />
+                            ) : (
+                              <VisibilityOff />
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell align="left" className="bg-slate-200">
+                          {data.UserCategory.category === "Admin" ? (
+                            <div></div>
                           ) : (
-                            <VisibilityOff />
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell align="left" className="bg-slate-200">
-                        {data.UserCategory.category === "Admin" ? (
-                          <div></div>
-                        ) : (
-                          <div className="flex-col ">
-                            <Button
-                              variant="contained"
-                              onClick={handleassignbook}
-                              className=" !w-full gap-1"
-                            >
-                              Assign <span> Books</span>
-                            </Button>
-                            <div>
+                            <div className="flex-col ">
                               <Button
                                 variant="contained"
-                                className="!mt-2 !w-full gap-1"
-                                onClick={() => handleaddexpiry(data.id)}
+                                onClick={handleassignbook}
+                                className=" !w-full gap-1"
                               >
-                                Add <span>Expiry</span>
+                                Assign <span> Books</span>
                               </Button>
-                              <Dialog
-                                PaperProps={{
-                                  sx: {
-                                    width: "80%",
-                                    height: "100%",
-                                    backgroundColor: "rgb(235,215,224)",
-                                  },
-                                }}
-                                open={open}
-                                aria-labelledby="alert-dialog-title"
-                                aria-describedby="alert-dialog-description"
-                                TransitionComponent={Transition}
-                              >
-                                {/* <DialogTitle id="alert-dialog-title">"{postdata}"</DialogTitle> */}
-                                <DialogContent className="">
-                                  {/* <DialogContentText id="alert-dialog-description">
+                              <div>
+                                <Button
+                                  variant="contained"
+                                  className="!mt-2 !w-full gap-1"
+                                  onClick={() => handleaddexpiry(data.id)}
+                                >
+                                  Add <span>Expiry</span>
+                                </Button>
+                                <Dialog
+                                  PaperProps={{
+                                    sx: {
+                                      width: "80%",
+                                      height: "100%",
+                                      backgroundColor: "rgb(235,215,224)",
+                                    },
+                                  }}
+                                  open={open}
+                                  aria-labelledby="alert-dialog-title"
+                                  aria-describedby="alert-dialog-description"
+                                  TransitionComponent={Transition}
+                                >
+                                  {/* <DialogTitle id="alert-dialog-title">"{postdata}"</DialogTitle> */}
+                                  <DialogContent className="">
+                                    {/* <DialogContentText id="alert-dialog-description">
                 New Subject Added Successfully!!!
               </DialogContentText> */}
-                                  <div className="">
-                                    <Calender />
-                                  </div>
-                                </DialogContent>
-                                <DialogActions>
-                                  <Button>Close</Button>
-                                </DialogActions>
-                              </Dialog>
+                                    <div className="">
+                                      <Calender />
+                                    </div>
+                                  </DialogContent>
+                                  <DialogActions>
+                                    <Button>Close</Button>
+                                  </DialogActions>
+                                </Dialog>
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </TableCell>
+                          )}
+                        </TableCell>
 
-                      {/* <TableCell align="left" className="bg-slate-200">
+                        {/* <TableCell align="left" className="bg-slate-200">
                     <DeleteOutlineIcon
                       className=""
                       onClick={() => {
@@ -466,15 +485,16 @@ export default function UserTable(Date) {
                       }}
                     />
                   </TableCell> */}
-                      {/* <TableCell align="right">{row.protein}</TableCell> */}
-                    </TableRow>
-                  ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 41 * emptyRows }}>
-                  <TableRow colSpan={3} />
-                </TableRow>
-              )}
-            </TableBody>
+                        {/* <TableCell align="right">{row.protein}</TableCell> */}
+                      </TableRow>
+                    ))}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 41 * emptyRows }}>
+                    <TableRow colSpan={3} />
+                  </TableRow>
+                )}
+              </TableBody>
+            )}
           </Table>
           {/* <TablePagination
             component="div"

@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function LinkTab(props) {
   return (
@@ -21,6 +22,8 @@ const VerticalTabs = (props) => {
 
   const [value, setValue] = useState(0);
 
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(newValue);
@@ -34,9 +37,7 @@ const VerticalTabs = (props) => {
       <div>
         <Box sx={{ width: "100%" }}>
           <Tabs
-            orientation={`${
-              window.screen.width > 768 ? "vertical" : "horizontal"
-            }`}
+            orientation={`${isMatch ? "horizontal" : "vertical"}`}
             value={value}
             onChange={handleChange}
             aria-label="nav tabs example"
@@ -51,7 +52,7 @@ const VerticalTabs = (props) => {
                   }}
                   className={`${
                     value === index
-                      ? "!bg-pink-400 !rounded-md !shadow-md !shadow-[red] !outline-none"
+                      ? "!bg-pink-400 !rounded-md !shadow-md !shadow-[red] !outline-none "
                       : "!text-blue-700 "
                   } !text-white  !font-medium`}
                   value={index}

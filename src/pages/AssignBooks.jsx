@@ -64,7 +64,9 @@ const AssignBooks = () => {
   };
   const fetch = async () => {
     const res = await localinstance({
-      url: `book/get/active`,
+      // url: `book/get/active`,
+
+      url: `bookassign/get/user/unassignBooks/${id}`,
       method: "GET",
       headers: {
         Authorization: `${Cookies.get("token")}`,
@@ -81,6 +83,7 @@ const AssignBooks = () => {
       obj.checked = false;
     }
     setfetchdata(data);
+    console.log(fetchdata);
     // fetch1(res.data.message.id);
     // setid(res.data.message.id);
   };
