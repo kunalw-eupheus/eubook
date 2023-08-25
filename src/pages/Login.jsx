@@ -97,7 +97,7 @@ const Login = () => {
       <div className="">
         <img
           src={Cover}
-          className="h-0 w-0 sm:h-[712px] sm:w-[1500px] md:h-[712px] md:w-[2500px] lg:h-[712px] lg:w-[4800px]"
+          className="h-0 w-0 sm:h-[100%] sm:w-[1500px]  md:w-[2500px]  lg:w-[4800px]"
         ></img>
         {/* <img src={Cover} width={"1200px"} height={"1500px"} wi></img> */}
       </div>
